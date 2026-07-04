@@ -63,14 +63,29 @@ app.get("/api/status", async (req, res) => {
 
   if (disk) {
     const [used, total, percent] = disk.split(",");
-    diskData = {
-      used,
-      total,
-      percent,
-    };
+    diskData = { used, total, percent };
+  }
+
+  const loadedModel = model || "No active model";
+
+  let activity = "Waiting";
+  let state = "Idle";
+
+  if (ollama !== "running") {
+    activity = "Ollama offline";
+    state = "Offline";
+  } else if (loadedModel !== "No active model") {
+    activity = "Model loaded";
+    state = "Ready";
   }
 
   res.json({
+    jarvis: {
+      state,
+      activity,
+      loadedModel,
+      lastUpdated: new Date().toISOString(),
+    },
     gpu: gpuData,
     cpu: {
       usage: cpu ? Math.round(Number(cpu)) : null,
@@ -83,7 +98,7 @@ app.get("/api/status", async (req, res) => {
     disk: diskData,
     uptime: uptime || "unknown",
     ollama,
-    model: model || "No active model",
+    model: loadedModel,
   });
 });
 
