@@ -1,9 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
+const fs = require("fs");
 
 const app = express();
 app.use(cors());
+
+let previousCpu = null;
 
 function run(cmd) {
   return new Promise((resolve) => {
@@ -14,18 +17,48 @@ function run(cmd) {
   });
 }
 
+function readCpuSnapshot() {
+  const line = fs.readFileSync("/proc/stat", "utf8").split("\n")[0];
+  const parts = line.trim().split(/\s+/).slice(1).map(Number);
+
+  const idle = parts[3] + parts[4];
+  const total = parts.reduce((sum, value) => sum + value, 0);
+
+  return { idle, total };
+}
+
+function getCpuUsage() {
+  const current = readCpuSnapshot();
+
+  if (!previousCpu) {
+    previousCpu = current;
+    return null;
+  }
+
+  const idleDelta = current.idle - previousCpu.idle;
+  const totalDelta = current.total - previousCpu.total;
+
+  previousCpu = current;
+
+  if (totalDelta <= 0) return null;
+
+  const usage = 100 * (1 - idleDelta / totalDelta);
+  return Math.round(usage);
+}
+
 app.get("/api/status", async (req, res) => {
   const gpu = await run(
     "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu,memory.used,memory.total,fan.speed --format=csv,noheader,nounits"
   );
 
   const mem = await run("free -m | awk '/Mem:/ {print $3 \",\" $2}'");
-  const cpu = await run("top -bn1 | awk '/Cpu\\(s\\)/ {print 100 - $8}'");
   const cpuTemp = await run("sensors | awk '/Package id 0:/ {gsub(/[+°C]/,\"\",$4); print $4; exit}'");
   const disk = await run("df -h / | awk 'NR==2 {print $3 \",\" $2 \",\" $5}'");
   const uptime = await run("uptime -p");
   const ollama = await run("pgrep ollama >/dev/null && echo running || echo stopped");
   const model = await run("ollama ps | awk 'NR==2 {print $1}'");
+
+  const cpuUsage = getCpuUsage();
 
   let gpuData = {
     usage: null,
@@ -88,7 +121,7 @@ app.get("/api/status", async (req, res) => {
     },
     gpu: gpuData,
     cpu: {
-      usage: cpu ? Math.round(Number(cpu)) : null,
+      usage: cpuUsage,
       temp: cpuTemp ? Math.round(Number(cpuTemp)) : null,
     },
     ram: {

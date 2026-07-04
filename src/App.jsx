@@ -99,7 +99,6 @@ function App() {
           <div className="panel-title">GPU</div>
           <Stat label="Load" value={gpu.usage !== undefined && gpu.usage !== null ? `${gpu.usage}%` : "--"} sub={`${gpu.temp ?? "--"}°C`} bar={gpu.usage} />
           <Stat label="VRAM" value={`${formatGB(gpu.vramUsed)} / ${formatGB(gpu.vramTotal)} GB`} sub={`${vramPercent}% used`} bar={vramPercent} />
-          <Stat label="Fan" value={gpu.fan !== undefined && gpu.fan !== null ? `${gpu.fan}%` : "--"} sub="zero-RPM normal" />
         </section>
 
         <section className="panel hero-panel">
@@ -122,7 +121,6 @@ function App() {
           <div className="panel-title">SYSTEM</div>
           <Stat label="CPU" value={cpu.usage !== undefined && cpu.usage !== null ? `${cpu.usage}%` : "--"} sub={`${cpu.temp ?? "--"}°C`} bar={cpu.usage} />
           <Stat label="RAM" value={`${formatGB(ram.used)} / ${formatGB(ram.total)} GB`} sub={`${ramPercent}% used`} bar={ramPercent} />
-          <Stat label="SSD" value={`${disk.used || "--"} / ${disk.total || "--"}`} sub={disk.percent || "--"} bar={diskPercent} />
         </section>
 
         <section className="panel services-panel">
