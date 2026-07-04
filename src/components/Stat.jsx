@@ -1,0 +1,16 @@
+import ProgressBar from "./ProgressBar";
+
+export default function Stat({ label, value, sub, bar }) {
+  return (
+    <div className="stat">
+      <div className="stat-row">
+        <div>
+          <span>{label}</span>
+          {sub && <small>{sub}</small>}
+        </div>
+        <strong>{value}</strong>
+      </div>
+      {bar !== undefined && <ProgressBar value={bar} />}
+    </div>
+  );
+}
