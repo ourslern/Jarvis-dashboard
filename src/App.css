@@ -21,20 +21,20 @@ body {
 }
 
 .topbar {
-  height: 60px;
-  padding: 7px 14px;
+  height: 62px;
+  padding: 7px 16px;
   border: 1px solid rgba(110, 210, 255, 0.34);
   border-radius: 16px;
   background: rgba(7, 18, 34, 0.86);
   box-shadow: 0 0 28px rgba(0, 140, 255, 0.16);
   display: grid;
-  grid-template-columns: 1fr auto 180px;
+  grid-template-columns: 1fr auto 185px;
   align-items: center;
   gap: 18px;
 }
 
 .brand {
-  font-size: 30px;
+  font-size: 32px;
   line-height: 1;
   font-weight: 1000;
   letter-spacing: 5px;
@@ -44,26 +44,26 @@ body {
 .subbrand {
   margin-top: 3px;
   color: #8daac8;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: 2px;
 }
 
 .system-pill {
-  height: 36px;
-  padding: 0 16px;
+  height: 38px;
+  padding: 0 17px;
   border-radius: 999px;
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 1000;
   letter-spacing: 1px;
 }
 
 .system-pill span {
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
 }
 
@@ -95,7 +95,7 @@ body {
 }
 
 .clock {
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 1000;
   line-height: 1;
 }
@@ -103,17 +103,17 @@ body {
 .date {
   margin-top: 4px;
   color: #8daac8;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
 }
 
 .v1-grid {
-  height: calc(100vh - 78px);
+  height: calc(100vh - 80px);
   margin-top: 8px;
   display: grid;
-  grid-template-columns: 310px 1fr;
-  grid-template-rows: 1fr 1fr 110px;
+  grid-template-columns: 325px 1fr;
+  grid-template-rows: 1fr 1fr 104px;
   gap: 8px;
   grid-template-areas:
     "gpu hero"
@@ -154,18 +154,18 @@ body {
 
 .panel-title {
   color: #82dcff;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 1000;
   letter-spacing: 2px;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
 }
 
 .stat {
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 .stat-row {
-  min-height: 31px;
+  min-height: 34px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -177,7 +177,7 @@ body {
 .mini-stat span {
   display: block;
   color: #8daac8;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 1000;
   letter-spacing: 1px;
   margin-bottom: 3px;
@@ -186,16 +186,16 @@ body {
 .stat-row small {
   display: block;
   color: #6f8cac;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .stat-row strong {
-  font-size: 19px;
+  font-size: 21px;
   text-align: right;
 }
 
 .bar {
-  height: 8px;
+  height: 9px;
   margin: 1px 0 4px;
   border-radius: 999px;
   overflow: hidden;
@@ -212,12 +212,13 @@ body {
 
 .hero-label {
   text-align: center;
-  margin-top: 4px;
-  margin-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 9px;
+  font-size: 13px;
 }
 
 .hero-activity {
-  min-height: 78px;
+  min-height: 82px;
   border-radius: 20px;
   background: rgba(0, 120, 255, 0.09);
   border: 1px solid rgba(110, 210, 255, 0.18);
@@ -226,7 +227,7 @@ body {
   justify-content: center;
   padding: 14px;
   text-align: center;
-  font-size: 34px;
+  font-size: 36px;
   font-weight: 1000;
   color: white;
   box-shadow: inset 0 0 24px rgba(0, 140, 255, 0.08);
@@ -240,7 +241,7 @@ body {
 }
 
 .mini-stat {
-  min-height: 66px;
+  min-height: 68px;
   border-radius: 16px;
   padding: 11px;
   background: rgba(255, 255, 255, 0.055);
@@ -249,7 +250,7 @@ body {
 
 .mini-stat strong {
   display: block;
-  font-size: 20px;
+  font-size: 21px;
   line-height: 1.15;
   white-space: nowrap;
   overflow: hidden;
@@ -258,13 +259,13 @@ body {
 
 .launch-button {
   margin-top: auto;
-  height: 70px;
+  height: 72px;
   border: 0;
   border-radius: 22px;
   background:
     linear-gradient(135deg, rgba(19, 126, 255, 1), rgba(0, 217, 255, 1));
   color: white;
-  font-size: 27px;
+  font-size: 28px;
   font-weight: 1000;
   letter-spacing: 1px;
   box-shadow:
@@ -284,26 +285,26 @@ body {
 }
 
 .service {
-  min-height: 48px;
+  min-height: 46px;
   display: grid;
-  grid-template-columns: 16px 1fr auto;
+  grid-template-columns: 17px 1fr auto;
   gap: 8px;
   align-items: center;
   border-radius: 14px;
   padding: 0 12px;
   background: rgba(255, 255, 255, 0.045);
   border: 1px solid rgba(110, 210, 255, 0.11);
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .service strong {
   color: #8daac8;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .led {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
 }
 
