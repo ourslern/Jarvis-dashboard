@@ -7,6 +7,7 @@ const app = express();
 app.use(cors());
 
 let previousCpu = null;
+let gpuHistory = [];
 
 function run(cmd) {
   return new Promise((resolve) => {
@@ -42,8 +43,20 @@ function getCpuUsage() {
 
   if (totalDelta <= 0) return null;
 
-  const usage = 100 * (1 - idleDelta / totalDelta);
-  return Math.round(usage);
+  return Math.round(100 * (1 - idleDelta / totalDelta));
+}
+
+function smoothGpuUsage(value) {
+  if (value === null || value === undefined || Number.isNaN(value)) return null;
+
+  gpuHistory.push(value);
+
+  if (gpuHistory.length > 5) {
+    gpuHistory.shift();
+  }
+
+  const avg = gpuHistory.reduce((sum, item) => sum + item, 0) / gpuHistory.length;
+  return Math.round(avg);
 }
 
 app.get("/api/status", async (req, res) => {
@@ -70,8 +83,11 @@ app.get("/api/status", async (req, res) => {
 
   if (gpu) {
     const [usage, temp, vramUsed, vramTotal, fan] = gpu.split(",").map(x => x.trim());
+    const rawGpuUsage = Number(usage);
+
     gpuData = {
-      usage: Number(usage),
+      usage: smoothGpuUsage(rawGpuUsage),
+      rawUsage: rawGpuUsage,
       temp: Number(temp),
       vramUsed: Number(vramUsed),
       vramTotal: Number(vramTotal),
